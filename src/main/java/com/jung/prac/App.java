@@ -1,32 +1,28 @@
 package com.jung.prac;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
     private int wiseSayingId = 0;
-    WiseSaying wiseSaying = new WiseSaying();
+    private WiseSaying wiseSaying = new WiseSaying();
+    private List<WiseSaying> wiseSayingList = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
 
     public void run() {
 
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("==명언 SSG==");
-        System.out.printf("명령) ");
-        String cmd = sc.nextLine();
 
         outer:
         while (true) {
 
+            System.out.printf("명령) ");
+            String cmd = sc.nextLine();
+
             switch (cmd) {
 
-                /*
-                == 명언 SSG ==
-                명령) 등록
-                명언 : 현재를 사랑하라.
-                작가 : 작자미상
-                명령) 종료
-                 */
                 case "등록":
 
                     register();
@@ -46,6 +42,19 @@ public class App {
 
     private void register() {
 
+        System.out.printf("명언 : ");
+        String content = sc.nextLine();
+
+        System.out.printf("작가 : ");
+        String author = sc.nextLine();
+
+        wiseSaying.setId(++wiseSayingId);
+        wiseSaying.setContent(content);
+        wiseSaying.setAuthor(author);
+
+        wiseSayingList.add(wiseSaying);
+
+        System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSaying.getId());
 
     }
 
