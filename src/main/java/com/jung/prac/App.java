@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class App {
 
     private int wiseSayingId = 0;
-    private WiseSaying wiseSaying = new WiseSaying();
     private List<WiseSaying> wiseSayingList = new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
 
@@ -29,6 +28,12 @@ public class App {
 
                     break;
 
+                case "목록":
+
+                    printList();
+
+                    break;
+
                 case "종료":
 
                     break outer;
@@ -40,6 +45,18 @@ public class App {
 
     }
 
+    private void printList() {
+
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("-------------------------");
+
+        for (int i = wiseSayingId - 1; i >= 0; i--) {
+            WiseSaying wiseSaying = wiseSayingList.get(i);
+            System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
+        }
+
+    }
+
     private void register() {
 
         System.out.printf("명언 : ");
@@ -48,6 +65,7 @@ public class App {
         System.out.printf("작가 : ");
         String author = sc.nextLine();
 
+        WiseSaying wiseSaying = new WiseSaying();
         wiseSaying.setId(++wiseSayingId);
         wiseSaying.setContent(content);
         wiseSaying.setAuthor(author);
