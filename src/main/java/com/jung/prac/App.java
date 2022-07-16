@@ -51,6 +51,12 @@ public class App {
 
                     break outer;
 
+                default:
+
+                    System.out.println("해당 명령어는 존재하지 않습니다.");
+
+                    break;
+
             }
 
         }
@@ -59,14 +65,6 @@ public class App {
     }
 
     private void change(Request rq) {
-
-        /*명령) 수정?id=2
-명언(기존) : 과거에 집착하지 마라.
-명언 : 현재와 자신을 사랑하라.
-작가(기존) : 작자미상
-작가 : 홍길동*/
-
-
 
         int id = Integer.parseInt(rq.getQueryParamValue("id", "0"));
 
