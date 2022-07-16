@@ -41,6 +41,12 @@ public class App {
 
                     break;
 
+                case "수정":
+
+                    change(rq);
+
+                    break;
+
                 case "종료":
 
                     break outer;
@@ -52,12 +58,21 @@ public class App {
 
     }
 
-    private void delete(Request rq) {
+    private void change(Request rq) {
+
+        /*명령) 수정?id=2
+명언(기존) : 과거에 집착하지 마라.
+명언 : 현재와 자신을 사랑하라.
+작가(기존) : 작자미상
+작가 : 홍길동*/
+
+
 
         int id = Integer.parseInt(rq.getQueryParamValue("id", "0"));
 
         if (id == 0) {
             System.out.println("id를 입력해주세요.");
+            return;
         }
 
         WiseSaying foundWiseSaying = null;
@@ -70,6 +85,46 @@ public class App {
 
         if (foundWiseSaying == null) {
             System.out.println("해당 id의 명언은 존재하지 않습니다.");
+            return;
+        }
+
+        System.out.printf("명언(기존) : %s\n", foundWiseSaying.getContent());
+        System.out.printf("명언 :");
+
+        String content = sc.nextLine();
+
+        System.out.printf("작가(기존) : %s\n", foundWiseSaying.getAuthor());
+        System.out.printf("작가 : ");
+
+        String author = sc.nextLine();
+
+        foundWiseSaying.setContent(content);
+        foundWiseSaying.setAuthor(author);
+
+        System.out.printf("%d번 명언이 수정되었습니다.\n", foundWiseSaying.getId());
+
+    }
+
+    private void delete(Request rq) {
+
+        int id = Integer.parseInt(rq.getQueryParamValue("id", "0"));
+
+        if (id == 0) {
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+
+        WiseSaying foundWiseSaying = null;
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == id) {
+                foundWiseSaying = wiseSaying;
+                break;
+            }
+        }
+
+        if (foundWiseSaying == null) {
+            System.out.println("해당 id의 명언은 존재하지 않습니다.");
+            return;
         }
 
         wiseSayingList.remove(foundWiseSaying);
