@@ -6,8 +6,7 @@ import java.util.Scanner;
 
 public class WiseSayingController {
 
-    private int wiseSayingId = 0;
-    private List<WiseSaying> wiseSayingList = new ArrayList<>();
+    WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
     private Scanner sc = new Scanner(System.in);
 
     public void change(Request rq) {
@@ -19,13 +18,7 @@ public class WiseSayingController {
             return;
         }
 
-        WiseSaying foundWiseSaying = null;
-        for (WiseSaying wiseSaying : wiseSayingList) {
-            if (wiseSaying.getId() == id) {
-                foundWiseSaying = wiseSaying;
-                break;
-            }
-        }
+        WiseSaying foundWiseSaying = wiseSayingRepository.findById(id);
 
         if (foundWiseSaying == null) {
             System.out.println("해당 id의 명언은 존재하지 않습니다.");
@@ -58,20 +51,14 @@ public class WiseSayingController {
             return;
         }
 
-        WiseSaying foundWiseSaying = null;
-        for (WiseSaying wiseSaying : wiseSayingList) {
-            if (wiseSaying.getId() == id) {
-                foundWiseSaying = wiseSaying;
-                break;
-            }
-        }
+        WiseSaying foundWiseSaying = wiseSayingRepository.findById(id);
 
         if (foundWiseSaying == null) {
             System.out.println("해당 id의 명언은 존재하지 않습니다.");
             return;
         }
 
-        wiseSayingList.remove(foundWiseSaying);
+        wiseSayingRepository.remove(foundWiseSaying);
 
         System.out.printf("%d번 명언이 삭제되었습니다.\n", foundWiseSaying.getId());
 
@@ -82,6 +69,8 @@ public class WiseSayingController {
 
         System.out.println("번호 / 작가 / 명언");
         System.out.println("-------------------------");
+
+        List<WiseSaying> wiseSayingList = wiseSayingRepository.getWiseSayingList();
 
         for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
             WiseSaying wiseSaying = wiseSayingList.get(i);
@@ -99,11 +88,10 @@ public class WiseSayingController {
         String author = sc.nextLine();
 
         WiseSaying wiseSaying = new WiseSaying();
-        wiseSaying.setId(++wiseSayingId);
         wiseSaying.setContent(content);
         wiseSaying.setAuthor(author);
 
-        wiseSayingList.add(wiseSaying);
+        wiseSayingRepository.save(wiseSaying);
 
         System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSaying.getId());
 
