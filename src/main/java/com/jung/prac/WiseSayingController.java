@@ -142,10 +142,14 @@ public class WiseSayingController {
             System.out.println("찾는 번호의 명언은 존재하지 않습니다.");
         }
         else {
-            System.out.printf("==%d번 명언==\n", foundWiseSaying.getId());
-            System.out.printf("명언 : %s\n", foundWiseSaying.getContent());
-            System.out.printf("작가 : %s\n", foundWiseSaying.getAuthor());
+            printWiseSaying(foundWiseSaying);
         }
+    }
+
+    private void printWiseSaying(WiseSaying foundWiseSaying) {
+        System.out.printf("==%d번 명언==\n", foundWiseSaying.getId());
+        System.out.printf("명언 : %s\n", foundWiseSaying.getContent());
+        System.out.printf("작가 : %s\n", foundWiseSaying.getAuthor());
     }
 
     public void searchByKeyword(Request rq) {
@@ -164,9 +168,7 @@ public class WiseSayingController {
         }
 
         for (WiseSaying wiseSaying : foundWiseSayingList) {
-            System.out.printf("==%d번 명언==\n", wiseSaying.getId());
-            System.out.printf("명언 : %s\n", wiseSaying.getContent());
-            System.out.printf("작가 : %s\n", wiseSaying.getAuthor());
+            printWiseSaying(wiseSaying);
         }
     }
 
@@ -186,9 +188,7 @@ public class WiseSayingController {
         }
 
         for (WiseSaying wiseSaying : foundWiseSayingList) {
-            System.out.printf("==%d번 명언==\n", wiseSaying.getId());
-            System.out.printf("명언 : %s\n", wiseSaying.getContent());
-            System.out.printf("작가 : %s\n", wiseSaying.getAuthor());
+            printWiseSaying(wiseSaying);
         }
 
     }
