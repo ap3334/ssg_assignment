@@ -1,12 +1,11 @@
 package com.jung.prac;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
 
-    WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
+    private WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
     private Scanner sc = new Scanner(System.in);
 
     public void change(Request rq) {
@@ -25,21 +24,52 @@ public class WiseSayingController {
             return;
         }
 
-        System.out.printf("명언(기존) : %s\n", foundWiseSaying.getContent());
-        System.out.printf("명언 :");
+        while (true) {
+            System.out.print("수정할 옵션을 선택해주세요.(0: 명언, 1: 작가, 2: 명언, 작가) : ");
 
-        String content = sc.nextLine();
+            String option = sc.nextLine().trim();
 
+            if (option.equals("0")) {
+
+                changeContent(foundWiseSaying);
+
+            } else if (option.equals("1")) {
+
+                changeAuthor(foundWiseSaying);
+
+            } else if (option.equals("2")) {
+
+                changeContent(foundWiseSaying);
+                changeAuthor(foundWiseSaying);
+
+            } else {
+
+                System.out.println("해당 옵션은 존재하지 않습니다.");
+                continue;
+
+            }
+
+
+            System.out.printf("%d번 명언이 수정되었습니다.\n", foundWiseSaying.getId());
+            break;
+        }
+
+    }
+
+    private void changeAuthor(WiseSaying foundWiseSaying) {
         System.out.printf("작가(기존) : %s\n", foundWiseSaying.getAuthor());
         System.out.printf("작가 : ");
 
         String author = sc.nextLine();
-
-        foundWiseSaying.setContent(content);
         foundWiseSaying.setAuthor(author);
+    }
 
-        System.out.printf("%d번 명언이 수정되었습니다.\n", foundWiseSaying.getId());
+    private void changeContent(WiseSaying foundWiseSaying) {
+        System.out.printf("명언(기존) : %s\n", foundWiseSaying.getContent());
+        System.out.printf("명언 : ");
 
+        String content = sc.nextLine();
+        foundWiseSaying.setContent(content);
     }
 
     public void delete(Request rq) {
