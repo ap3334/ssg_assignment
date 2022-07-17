@@ -54,4 +54,38 @@ public class WiseSayingRepository {
         wiseSayingList.add(wiseSaying);
 
     }
+
+    public List<WiseSaying> findByKeyword(String keyword) {
+
+        List<WiseSaying> foundWiseSayingList = new ArrayList<>();
+
+        for (WiseSaying wiseSaying : wiseSayingList) {
+
+            String content = wiseSaying.getContent();
+
+            if (content.contains(keyword)) {
+                foundWiseSayingList.add(wiseSaying);
+            }
+
+        }
+
+        return foundWiseSayingList;
+    }
+
+    public List<WiseSaying> findByAuthor(String target) {
+
+        List<WiseSaying> foundWiseSayingList = new ArrayList<>();
+
+        for (WiseSaying wiseSaying : wiseSayingList) {
+
+            String author = wiseSaying.getAuthor();
+
+            if (author.equals(target)) {
+                foundWiseSayingList.add(wiseSaying);
+            }
+
+        }
+
+        return foundWiseSayingList;
+    }
 }

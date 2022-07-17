@@ -97,4 +97,70 @@ public class WiseSayingController {
 
     }
 
+    public void searchById(Request rq) {
+
+        if (rq.getQueryParamValue("id", "0") == "") {
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+
+        int id = Integer.parseInt(rq.getQueryParamValue("id", "0"));
+
+        WiseSaying foundWiseSaying = wiseSayingRepository.findById(id);
+
+        if (foundWiseSaying == null) {
+            System.out.println("찾는 번호의 명언은 존재하지 않습니다.");
+        }
+        else {
+            System.out.printf("==%d번 명언==\n", foundWiseSaying.getId());
+            System.out.printf("명언 : %s\n", foundWiseSaying.getContent());
+            System.out.printf("작가 : %s\n", foundWiseSaying.getAuthor());
+        }
+    }
+
+    public void searchByKeyword(Request rq) {
+
+        String keyword = rq.getQueryParamValue("keyword", "0");
+
+        if (keyword.equals("")) {
+            System.out.println("찾는 keyword를 입력해주세요.");
+        }
+
+        List<WiseSaying> foundWiseSayingList = wiseSayingRepository.findByKeyword(keyword);
+
+        if (foundWiseSayingList.size() == 0) {
+            System.out.println("찾는 키워드의 명언은 존재하지 않습니다.");
+            return;
+        }
+
+        for (WiseSaying wiseSaying : foundWiseSayingList) {
+            System.out.printf("==%d번 명언==\n", wiseSaying.getId());
+            System.out.printf("명언 : %s\n", wiseSaying.getContent());
+            System.out.printf("작가 : %s\n", wiseSaying.getAuthor());
+        }
+    }
+
+    public void searchByAuthor(Request rq) {
+
+        String target = rq.getQueryParamValue("author", "0");
+
+        if (target.equals("")) {
+            System.out.println("찾는 작가를 입력해주세요.");
+        }
+
+        List<WiseSaying> foundWiseSayingList = wiseSayingRepository.findByAuthor(target);
+
+        if (foundWiseSayingList.size() == 0) {
+            System.out.println("찾는 작가의 명언은 존재하지 않습니다.");
+            return;
+        }
+
+        for (WiseSaying wiseSaying : foundWiseSayingList) {
+            System.out.printf("==%d번 명언==\n", wiseSaying.getId());
+            System.out.printf("명언 : %s\n", wiseSaying.getContent());
+            System.out.printf("작가 : %s\n", wiseSaying.getAuthor());
+        }
+
+    }
+
 }

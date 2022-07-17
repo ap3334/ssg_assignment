@@ -22,6 +22,23 @@ public class App {
 
             switch (rq.getPath()) {
 
+                case "검색":
+
+                    if (rq.getQueryParam().containsKey("keyword")){
+                        wiseSayingController.searchByKeyword(rq);
+                    }
+                    else if (rq.getQueryParam().containsKey("author")) {
+                        wiseSayingController.searchByAuthor(rq);
+                    }
+                    else if (rq.getQueryParam().containsKey("id")){
+                        wiseSayingController.searchById(rq);
+                    }
+                    else {
+                        System.out.println("검색하고자 하는 id, keyword, author 중 하나를 입력해주세요");
+                    }
+
+                    break;
+
                 case "등록":
 
                     wiseSayingController.register();
